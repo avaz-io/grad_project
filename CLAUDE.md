@@ -113,3 +113,7 @@ Allowed small libraries: `djangorestframework-simplejwt` (JWT auth), `django-cor
 ## Evaluation targets (keep in mind)
 
 Task completion ≥ 90%; SUS ≥ 70; pages load < 3 s, API < 500 ms; ≥ 70% backend test coverage; no critical OWASP Top 10 issues; role-based access on every endpoint.
+## Git rules
+- Never push, merge, or force-push. Commit on feature branches only; the team pushes and merges.
+- Never commit .env or any secrets.
+- Never delete files or run destructive commands without asking first.
