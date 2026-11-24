@@ -1,19 +1,13 @@
 import type { SubjectShort, TutorSubject } from "../api/types";
 import type { Language, Translate } from "../context/LanguageContext";
 
-// 150000 -> "150 000": a space before every group of three digits, counted from the right.
-// (\B = not at the start; (?=(\d{3})+$) = only whole groups of three digits follow.)
-function groupThousands(amount: number): string {
-  return String(Math.round(amount)).replace(/\B(?=(\d{3})+$)/g, " ");
-}
-
-// "150000.00" -> "150 000 so'm", "0.00" -> "Free". All prices are in Uzbek so'm.
+// "15.00" -> "$15", "12.50" -> "$12.5", "0.00" -> "Free". All prices are in US dollars.
 export function formatPrice(price: string, t: Translate): string {
   const amount = Number(price);
-  return amount === 0 ? t("common.free") : t("common.som", { amount: groupThousands(amount) });
+  return amount === 0 ? t("common.free") : `$${amount}`;
 }
 
-// Mentor sessions: "Free", or "100 000 so'm / session".
+// Mentor sessions: "Free", or "$10 / session".
 export function formatSessionPrice(price: string, t: Translate): string {
   return Number(price) === 0
     ? t("common.free")

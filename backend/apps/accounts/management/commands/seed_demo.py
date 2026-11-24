@@ -7,7 +7,7 @@ Safe to run many times: every row is looked up by a natural key first
 Prices are the exception: they are always set to the values below, so a
 database seeded with older demo prices gets the current ones.
 
-All prices are in Uzbek so'm.
+All prices are in US dollars.
 """
 from datetime import datetime, time, timedelta
 from decimal import Decimal
@@ -42,17 +42,17 @@ EDUCATORS = [
 ]
 
 COURSES = [
-    # title, subject slug, level, language, price in so'm, educator index
-    ("English Grammar Basics", "english", "a2", "uz", "0", 0),
-    ("IELTS Writing Task 2", "english", "b2", "en", "350000", 0),
-    ("Speaking with Confidence", "english", "b1", "en", "250000", 0),
-    ("Algebra for Beginners", "math", "beginner", "uz", "0", 1),
-    ("Calculus I", "math", "intermediate", "en", "400000", 1),
-    ("Mechanics Made Simple", "physics", "beginner", "ru", "150000", 1),
-    ("Electricity and Magnetism", "physics", "advanced", "en", "450000", 1),
-    ("Python from Zero", "programming", "beginner", "uz", "300000", 0),
-    ("Web Development with Django", "programming", "intermediate", "en", "600000", 0),
-    ("History of Central Asia", "history", "beginner", "uz", "0", 1),
+    # title, subject slug, level, language, price in USD, educator index
+    ("English Grammar Basics", "english", "a2", "uz", "0.00", 0),
+    ("IELTS Writing Task 2", "english", "b2", "en", "25.00", 0),
+    ("Speaking with Confidence", "english", "b1", "en", "15.00", 0),
+    ("Algebra for Beginners", "math", "beginner", "uz", "0.00", 1),
+    ("Calculus I", "math", "intermediate", "en", "30.00", 1),
+    ("Mechanics Made Simple", "physics", "beginner", "ru", "10.00", 1),
+    ("Electricity and Magnetism", "physics", "advanced", "en", "35.00", 1),
+    ("Python from Zero", "programming", "beginner", "uz", "20.00", 0),
+    ("Web Development with Django", "programming", "intermediate", "en", "40.00", 0),
+    ("History of Central Asia", "history", "beginner", "uz", "0.00", 1),
 ]
 
 LESSONS = [
@@ -73,20 +73,20 @@ LECTURES = [
 ]
 
 TUTORS = [
-    # username, first, last, hourly rate in so'm, languages, [(subject, min level, max level)]
-    ("demo_tutor_1", "Aziza", "Yusupova", "120000", ["uz", "en"], [("english", "a1", "b2")]),
-    ("demo_tutor_2", "Bekzod", "Tursunov", "180000", ["en"], [("english", "b1", "c2")]),
-    ("demo_tutor_3", "Dilshod", "Ergashev", "100000", ["uz", "ru"],
+    # username, first, last, hourly rate in USD, languages, [(subject, min level, max level)]
+    ("demo_tutor_1", "Aziza", "Yusupova", "15.00", ["uz", "en"], [("english", "a1", "b2")]),
+    ("demo_tutor_2", "Bekzod", "Tursunov", "25.00", ["en"], [("english", "b1", "c2")]),
+    ("demo_tutor_3", "Dilshod", "Ergashev", "12.00", ["uz", "ru"],
      [("math", "beginner", "advanced"), ("physics", "beginner", "intermediate")]),
-    ("demo_tutor_4", "Malika", "Saidova", "150000", ["uz", "en"], [("programming", "beginner", "intermediate")]),
-    ("demo_tutor_5", "Otabek", "Nazarov", "80000", ["uz"], [("history", "beginner", "advanced")]),
+    ("demo_tutor_4", "Malika", "Saidova", "18.00", ["uz", "en"], [("programming", "beginner", "intermediate")]),
+    ("demo_tutor_5", "Otabek", "Nazarov", "8.00", ["uz"], [("history", "beginner", "advanced")]),
 ]
 
 MENTORS = [
-    # username, first, last, topics, session price in so'm, languages
-    ("demo_mentor_1", "Kamola", "Ismoilova", "university applications, scholarships", "0", ["uz", "en"]),
-    ("demo_mentor_2", "Sardor", "Aliyev", "career in IT, CV review", "100000", ["uz", "ru"]),
-    ("demo_mentor_3", "Gulnora", "Hasanova", "study planning, exam preparation", "60000", ["en"]),
+    # username, first, last, topics, session price in USD (0 = free), languages
+    ("demo_mentor_1", "Kamola", "Ismoilova", "university applications, scholarships", "0.00", ["uz", "en"]),
+    ("demo_mentor_2", "Sardor", "Aliyev", "career in IT, CV review", "15.00", ["uz", "ru"]),
+    ("demo_mentor_3", "Gulnora", "Hasanova", "study planning, exam preparation", "5.00", ["en"]),
 ]
 
 # Each tutor and mentor gets a one-hour slot at these hours on the next few days.
@@ -156,13 +156,16 @@ class Command(BaseCommand):
         for days in SLOT_DAYS_AHEAD:
             for hour in SLOT_HOURS:
                 starts_at = timezone.make_aware(datetime.combine(today + timedelta(days=days), time(hour)))
-                slot, created = AvailabilitySlot.objects.get_or_create(
+                _, created = AvailabilitySlot.objects.get_or_create(
                     host=host,
                     starts_at=starts_at,
                     defaults={"ends_at": starts_at + timedelta(hours=1), "price": price},
                 )
                 self.count(created)
-                self.set_price(slot, "price", price)
+        # Update the price of ALL this demo host's slots, also the ones made on an
+        # earlier day that are no longer in the 1-3 days ahead window above.
+        # (A booking keeps its own copy of the price, so this never changes a booking.)
+        AvailabilitySlot.objects.filter(host=host).exclude(price=price).update(price=price)
 
     # ---------- one method per kind of data ----------
 

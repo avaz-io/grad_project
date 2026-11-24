@@ -1,6 +1,6 @@
 // Shapes of the JSON returned by the public API (see the backend serializers).
-// Decimal fields (prices, ratings) arrive as strings, for example "150000.00".
-// All prices are in Uzbek so'm.
+// Decimal fields (prices, ratings) arrive as strings, for example "15.00".
+// All prices are in US dollars.
 
 export type SubjectShort = {
   slug: string;
