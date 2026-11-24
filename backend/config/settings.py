@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.postgres",  # part of Django; needed for ArrayField (tutor languages)
     # Third party
     "rest_framework",
     "corsheaders",
