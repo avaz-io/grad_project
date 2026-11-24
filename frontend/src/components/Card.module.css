@@ -5,10 +5,15 @@
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.card:hover {
+.card:hover,
+.card:focus-visible {
   border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
 }
 
 .top {
@@ -21,6 +26,7 @@
 .title {
   margin: 0;
   font-size: 1.1rem;
+  color: var(--color-primary);
 }
 
 .tag {
@@ -34,17 +40,20 @@
 }
 
 /* flex: 1 pushes the footer to the bottom, so cards in a row line up. */
-.details {
+.fields {
   flex: 1;
   margin: 0.75rem 0;
   padding: 0;
   list-style: none;
-  color: var(--color-muted);
   font-size: 0.9rem;
 }
 
-.details li + li {
+.fields li + li {
   margin-top: 0.25rem;
+}
+
+.label {
+  color: var(--color-muted);
 }
 
 .footer {

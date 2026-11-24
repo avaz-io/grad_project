@@ -3,7 +3,7 @@ import { useApi } from "../api/useApi";
 import Card from "../components/Card";
 import DataState from "../components/DataState";
 import { useLanguage } from "../context/LanguageContext";
-import { formatLanguages, formatPrice, formatRating } from "../utils/format";
+import { formatLanguages, formatRating, formatSessionPrice } from "../utils/format";
 import page from "./Page.module.css";
 
 export default function Mentors() {
@@ -24,20 +24,19 @@ export default function Mentors() {
         onRetry={mentors.retry}
       >
         <div className={page.grid}>
-          {mentors.data?.map((mentor) => {
-            // A free session just says "Free", a paid one says "$10 / session".
-            const price = formatPrice(mentor.default_price, t);
-            const isFree = Number(mentor.default_price) === 0;
-            return (
-              <Card
-                key={mentor.id}
-                title={mentor.name}
-                details={[mentor.topics, formatLanguages(mentor.languages, t)]}
-                footerLeft={isFree ? price : t("common.pricePerSession", { price })}
-                footerRight={formatRating(mentor.rating_avg, mentor.rating_count, t)}
-              />
-            );
-          })}
+          {mentors.data?.map((mentor) => (
+            <Card
+              key={mentor.id}
+              to={`/mentors/${mentor.id}`}
+              title={mentor.name}
+              fields={[
+                { label: t("fields.topics"), value: mentor.topics },
+                { label: t("fields.languages"), value: formatLanguages(mentor.languages, t) },
+              ]}
+              footerLeft={formatSessionPrice(mentor.default_price, t)}
+              footerRight={formatRating(mentor.rating_avg, mentor.rating_count, t)}
+            />
+          ))}
         </div>
       </DataState>
     </>

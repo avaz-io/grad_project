@@ -29,25 +29,45 @@
   "common": {
     "loading": "Loading...",
     "error": "Could not load data. Please check that the server is running.",
+    "notFound": "This item was not found. It may have been removed.",
     "retry": "Try again",
     "empty": "Nothing found.",
     "all": "All",
+    "back": "← Back",
+    "comingSoon": "Coming soon",
     "free": "Free",
+    "som": "{amount} so'm",
     "pricePerHour": "{price} / hour",
     "pricePerSession": "{price} / session",
     "rating": "★ {rating} ({count} reviews)",
     "noReviews": "No reviews yet",
     "lessons": "{count} lessons",
-    "minutes": "{count} min",
-    "educator": "Educator: {name}",
-    "speaker": "Speaker: {name}",
-    "languages": "Languages: {list}"
+    "minutes": "{count} min"
+  },
+  "fields": {
+    "subject": "Subject",
+    "level": "Level",
+    "language": "Language",
+    "teachingLanguage": "Teaching language",
+    "languages": "Languages",
+    "educator": "Educator",
+    "speaker": "Speaker",
+    "teaches": "Teaches",
+    "topics": "Topics",
+    "price": "Price",
+    "hourlyRate": "Hourly rate",
+    "sessionPrice": "Session price",
+    "rating": "Rating",
+    "type": "Type",
+    "startsAt": "Starts",
+    "duration": "Duration"
   },
   "courses": {
     "title": "Courses",
     "subtitle": "Self-paced courses from our educators.",
-    "subject": "Subject",
-    "level": "Level"
+    "about": "About this course",
+    "lessonsTitle": "Lessons",
+    "enrol": "Enrol"
   },
   "tutors": {
     "title": "Tutors",
@@ -57,12 +77,18 @@
     "title": "Mentors",
     "subtitle": "Verified mentors for one-to-one advice."
   },
+  "booking": {
+    "about": "About me",
+    "freeSlots": "Free time slots",
+    "noSlots": "No free time slots right now.",
+    "book": "Book"
+  },
   "lectures": {
     "title": "Free Lectures",
     "subtitle": "Recorded and live lectures, free for everyone.",
+    "about": "About this lecture",
     "live": "Live",
-    "recorded": "Recorded",
-    "startsAt": "Starts: {date}"
+    "recorded": "Recorded"
   },
   "levels": {
     "beginner": "Beginner",

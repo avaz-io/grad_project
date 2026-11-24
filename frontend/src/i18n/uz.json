@@ -29,25 +29,45 @@
   "common": {
     "loading": "Yuklanmoqda...",
     "error": "Ma'lumotlarni yuklab bo'lmadi. Server ishlayotganini tekshiring.",
+    "notFound": "Bu ma'lumot topilmadi. U o'chirilgan bo'lishi mumkin.",
     "retry": "Qayta urinish",
     "empty": "Hech narsa topilmadi.",
     "all": "Barchasi",
+    "back": "← Orqaga",
+    "comingSoon": "Tez orada",
     "free": "Bepul",
+    "som": "{amount} so'm",
     "pricePerHour": "{price} / soat",
     "pricePerSession": "{price} / mashg'ulot",
     "rating": "★ {rating} ({count} ta sharh)",
     "noReviews": "Hali sharh yo'q",
     "lessons": "{count} ta dars",
-    "minutes": "{count} daqiqa",
-    "educator": "O'qituvchi: {name}",
-    "speaker": "Ma'ruzachi: {name}",
-    "languages": "Tillar: {list}"
+    "minutes": "{count} daqiqa"
+  },
+  "fields": {
+    "subject": "Fan",
+    "level": "Daraja",
+    "language": "Til",
+    "teachingLanguage": "O'qitish tili",
+    "languages": "Tillar",
+    "educator": "O'qituvchi",
+    "speaker": "Ma'ruzachi",
+    "teaches": "O'qitadi",
+    "topics": "Mavzular",
+    "price": "Narxi",
+    "hourlyRate": "Soatlik narx",
+    "sessionPrice": "Mashg'ulot narxi",
+    "rating": "Reyting",
+    "type": "Turi",
+    "startsAt": "Boshlanishi",
+    "duration": "Davomiyligi"
   },
   "courses": {
     "title": "Kurslar",
     "subtitle": "O'qituvchilarimizning mustaqil o'rganish uchun kurslari.",
-    "subject": "Fan",
-    "level": "Daraja"
+    "about": "Kurs haqida",
+    "lessonsTitle": "Darslar",
+    "enrol": "Kursga yozilish"
   },
   "tutors": {
     "title": "Tutorlar",
@@ -57,12 +77,18 @@
     "title": "Mentorlar",
     "subtitle": "Yakkama-yakka maslahat uchun tasdiqlangan mentorlar."
   },
+  "booking": {
+    "about": "O'zim haqimda",
+    "freeSlots": "Bo'sh vaqtlar",
+    "noSlots": "Hozircha bo'sh vaqt yo'q.",
+    "book": "Band qilish"
+  },
   "lectures": {
     "title": "Bepul ma'ruzalar",
     "subtitle": "Yozib olingan va jonli ma'ruzalar, hamma uchun bepul.",
+    "about": "Ma'ruza haqida",
     "live": "Jonli",
-    "recorded": "Yozib olingan",
-    "startsAt": "Boshlanishi: {date}"
+    "recorded": "Yozib olingan"
   },
   "levels": {
     "beginner": "Boshlang'ich",

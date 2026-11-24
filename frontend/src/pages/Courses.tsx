@@ -27,7 +27,7 @@ export default function Courses() {
 
       <div className={page.filters}>
         <label className={page.filter}>
-          {t("courses.subject")}
+          {t("fields.subject")}
           <select value={subject} onChange={(event) => setSubject(event.target.value)}>
             <option value="">{t("common.all")}</option>
             {subjects.data?.map((item) => (
@@ -39,7 +39,7 @@ export default function Courses() {
         </label>
 
         <label className={page.filter}>
-          {t("courses.level")}
+          {t("fields.level")}
           <select value={level} onChange={(event) => setLevel(event.target.value)}>
             <option value="">{t("common.all")}</option>
             {LEVELS.map((value) => (
@@ -61,12 +61,13 @@ export default function Courses() {
           {courses.data?.map((course) => (
             <Card
               key={course.id}
+              to={`/courses/${course.id}`}
               title={course.title}
-              tag={t(`levels.${course.level}`)}
-              details={[
-                subjectName(course.subject, language),
-                t(`languageNames.${course.language}`),
-                t("common.educator", { name: course.educator_name }),
+              fields={[
+                { label: t("fields.subject"), value: subjectName(course.subject, language) },
+                { label: t("fields.level"), value: t(`levels.${course.level}`) },
+                { label: t("fields.language"), value: t(`languageNames.${course.language}`) },
+                { label: t("fields.educator"), value: course.educator_name },
               ]}
               footerLeft={formatPrice(course.price, t)}
               footerRight={t("common.lessons", { count: course.lesson_count })}
