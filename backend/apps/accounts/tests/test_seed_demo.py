@@ -39,6 +39,31 @@ def test_seed_demo_is_safe_to_run_twice():
 
 
 @pytest.mark.django_db
+def test_seed_demo_updates_old_demo_prices():
+    # A database seeded before the switch to so'm still has dollar prices.
+    call_command("seed_demo", "--force")
+    course = Course.objects.get(title="IELTS Writing Task 2")
+    tutor = TutorProfile.objects.get(user__username="demo_tutor_1")
+    mentor = MentorProfile.objects.get(user__username="demo_mentor_2")
+    slot = AvailabilitySlot.objects.filter(host=tutor.user).first()
+    Course.objects.filter(pk=course.pk).update(price=25)
+    TutorProfile.objects.filter(pk=tutor.pk).update(hourly_rate=15)
+    MentorProfile.objects.filter(pk=mentor.pk).update(default_price=10)
+    AvailabilitySlot.objects.filter(pk=slot.pk).update(price=15)
+
+    call_command("seed_demo", "--force")
+
+    course.refresh_from_db()
+    tutor.refresh_from_db()
+    mentor.refresh_from_db()
+    slot.refresh_from_db()
+    assert course.price == 350000
+    assert tutor.hourly_rate == 120000
+    assert mentor.default_price == 100000
+    assert slot.price == 120000
+
+
+@pytest.mark.django_db
 def test_seed_demo_refuses_without_force_when_debug_is_off():
     with pytest.raises(CommandError):
         call_command("seed_demo")
