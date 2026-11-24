@@ -1,5 +1,95 @@
 {
   "appName": "Mentoria",
-  "tagline": "O'z darajangizda o'rganing: kurslar, tutorlar, mentorlar va bepul ma'ruzalar.",
-  "apiStatus": "API holati"
+  "nav": {
+    "courses": "Kurslar",
+    "tutors": "Tutorlar",
+    "mentors": "Mentorlar",
+    "lectures": "Bepul ma'ruzalar",
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "menu": "Menyu",
+    "language": "Til"
+  },
+  "footer": {
+    "about": "O'zbekiston uchun darajaga asoslangan ta'lim.",
+    "project": "Bitiruv loyihasi, Yangi O'zbekiston Universiteti"
+  },
+  "home": {
+    "title": "O'z darajangizda o'rganing",
+    "tagline": "Kurslar, tutorlar, mentorlar va bepul ma'ruzalar bir joyda, darajangizga mos.",
+    "ctaCourses": "Kurslarni ko'rish",
+    "ctaTutors": "Tutor topish",
+    "sectionsTitle": "Mentoria'da nimalar bor",
+    "open": "Ochish →",
+    "coursesText": "O'qituvchilarning video, PDF va test darslaridan iborat kurslari, o'z tempingizda.",
+    "tutorsText": "Darajangiz, byudjetingiz va jadvalingizga mos tutor toping va dars band qiling.",
+    "mentorsText": "Karyera, o'qish rejasi va universitetga hujjat topshirish bo'yicha yakkama-yakka maslahat.",
+    "lecturesText": "Yozib olingan va jonli ma'ruzalar, hamma uchun bepul."
+  },
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Ma'lumotlarni yuklab bo'lmadi. Server ishlayotganini tekshiring.",
+    "retry": "Qayta urinish",
+    "empty": "Hech narsa topilmadi.",
+    "all": "Barchasi",
+    "free": "Bepul",
+    "pricePerHour": "{price} / soat",
+    "pricePerSession": "{price} / mashg'ulot",
+    "rating": "★ {rating} ({count} ta sharh)",
+    "noReviews": "Hali sharh yo'q",
+    "lessons": "{count} ta dars",
+    "minutes": "{count} daqiqa",
+    "educator": "O'qituvchi: {name}",
+    "speaker": "Ma'ruzachi: {name}",
+    "languages": "Tillar: {list}"
+  },
+  "courses": {
+    "title": "Kurslar",
+    "subtitle": "O'qituvchilarimizning mustaqil o'rganish uchun kurslari.",
+    "subject": "Fan",
+    "level": "Daraja"
+  },
+  "tutors": {
+    "title": "Tutorlar",
+    "subtitle": "Tasdiqlangan tutorlar, eng yuqori baholanganlari birinchi."
+  },
+  "mentors": {
+    "title": "Mentorlar",
+    "subtitle": "Yakkama-yakka maslahat uchun tasdiqlangan mentorlar."
+  },
+  "lectures": {
+    "title": "Bepul ma'ruzalar",
+    "subtitle": "Yozib olingan va jonli ma'ruzalar, hamma uchun bepul.",
+    "live": "Jonli",
+    "recorded": "Yozib olingan",
+    "startsAt": "Boshlanishi: {date}"
+  },
+  "levels": {
+    "beginner": "Boshlang'ich",
+    "intermediate": "O'rta",
+    "advanced": "Yuqori",
+    "a1": "A1",
+    "a2": "A2",
+    "b1": "B1",
+    "b2": "B2",
+    "c1": "C1",
+    "c2": "C2"
+  },
+  "languageNames": {
+    "en": "Ingliz tili",
+    "uz": "O'zbek tili",
+    "ru": "Rus tili"
+  },
+  "auth": {
+    "loginTitle": "Kirish",
+    "registerTitle": "Hisob yaratish",
+    "comingSoon": "Bu sahifa tez orada tayyor bo'ladi. Kirish va ro'yxatdan o'tish keyingi haftalarda API'ga ulanadi.",
+    "toRegister": "Hisobingiz yo'qmi? Ro'yxatdan o'ting",
+    "toLogin": "Hisobingiz bormi? Kiring"
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "text": "Siz qidirayotgan sahifa mavjud emas.",
+    "back": "Bosh sahifaga qaytish"
+  }
 }

@@ -1,0 +1,137 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* Only visible on small screens (see the media query below). */
+.menuButton {
+  display: none;
+  margin-left: auto;
+  padding: 0.4rem 0.8rem;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.links,
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.link {
+  padding: 0.4rem 0.7rem;
+  border-radius: var(--radius);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.link:hover {
+  background: var(--color-background);
+}
+
+.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.registerButton {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius);
+  background: var(--color-primary);
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.registerButton:hover {
+  background: var(--color-primary-dark);
+}
+
+.languageSwitch {
+  display: flex;
+  margin-left: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.languageButton,
+.languageActive {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.languageButton {
+  background: var(--color-white);
+  color: var(--color-muted);
+}
+
+.languageActive {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Phones and small tablets: links go into a drop-down under the logo. */
+@media (max-width: 860px) {
+  .menuButton {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .links,
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .registerButton {
+    text-align: center;
+  }
+
+  .languageSwitch {
+    align-self: flex-start;
+    margin: 0.5rem 0 0;
+  }
+}
