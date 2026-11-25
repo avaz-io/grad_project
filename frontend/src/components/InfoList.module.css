@@ -1,0 +1,16 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.row dt {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.row dd {
+  margin: 0;
+  font-weight: 600;
+}

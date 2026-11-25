@@ -1,5 +1,120 @@
 {
   "appName": "Mentoria",
-  "tagline": "Learn at your level: courses, tutors, mentors and free lectures.",
-  "apiStatus": "API status"
+  "nav": {
+    "courses": "Courses",
+    "tutors": "Tutors",
+    "mentors": "Mentors",
+    "lectures": "Free Lectures",
+    "login": "Log in",
+    "register": "Register",
+    "menu": "Menu",
+    "language": "Language"
+  },
+  "footer": {
+    "about": "Level-based learning for Uzbekistan.",
+    "project": "Graduation project, New Uzbekistan University"
+  },
+  "home": {
+    "title": "Learn at your level",
+    "tagline": "Courses, tutors, mentors and free lectures in one place, matched to your level.",
+    "ctaCourses": "Browse courses",
+    "ctaTutors": "Find a tutor",
+    "sectionsTitle": "What you can do on Mentoria",
+    "open": "Open →",
+    "coursesText": "Self-paced video, PDF and quiz courses from educators.",
+    "tutorsText": "Find a tutor for your level, budget and schedule, and book a lesson.",
+    "mentorsText": "One-to-one advice on careers, study plans and university applications.",
+    "lecturesText": "Recorded and live lectures, open to everyone for free."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Could not load data. Please check that the server is running.",
+    "notFound": "This item was not found. It may have been removed.",
+    "retry": "Try again",
+    "empty": "Nothing found.",
+    "all": "All",
+    "back": "← Back",
+    "comingSoon": "Coming soon",
+    "free": "Free",
+    "pricePerHour": "{price} / hour",
+    "pricePerSession": "{price} / session",
+    "rating": "★ {rating} ({count} reviews)",
+    "noReviews": "No reviews yet",
+    "lessons": "{count} lessons",
+    "minutes": "{count} min"
+  },
+  "fields": {
+    "subject": "Subject",
+    "level": "Level",
+    "language": "Language",
+    "teachingLanguage": "Teaching language",
+    "languages": "Languages",
+    "educator": "Educator",
+    "speaker": "Speaker",
+    "teaches": "Teaches",
+    "topics": "Topics",
+    "price": "Price",
+    "hourlyRate": "Hourly rate",
+    "sessionPrice": "Session price",
+    "rating": "Rating",
+    "type": "Type",
+    "startsAt": "Starts",
+    "duration": "Duration"
+  },
+  "courses": {
+    "title": "Courses",
+    "subtitle": "Self-paced courses from our educators.",
+    "about": "About this course",
+    "lessonsTitle": "Lessons",
+    "enrol": "Enrol"
+  },
+  "tutors": {
+    "title": "Tutors",
+    "subtitle": "Verified tutors, best rated first."
+  },
+  "mentors": {
+    "title": "Mentors",
+    "subtitle": "Verified mentors for one-to-one advice."
+  },
+  "booking": {
+    "about": "About me",
+    "freeSlots": "Free time slots",
+    "noSlots": "No free time slots right now.",
+    "book": "Book"
+  },
+  "lectures": {
+    "title": "Free Lectures",
+    "subtitle": "Recorded and live lectures, free for everyone.",
+    "about": "About this lecture",
+    "live": "Live",
+    "recorded": "Recorded"
+  },
+  "levels": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "a1": "A1",
+    "a2": "A2",
+    "b1": "B1",
+    "b2": "B2",
+    "c1": "C1",
+    "c2": "C2"
+  },
+  "languageNames": {
+    "en": "English",
+    "uz": "Uzbek",
+    "ru": "Russian"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create an account",
+    "comingSoon": "This page is coming soon. Login and registration will be connected to the API in the next weeks.",
+    "toRegister": "No account yet? Register",
+    "toLogin": "Already have an account? Log in"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist.",
+    "back": "Back to home"
+  }
 }

@@ -4,8 +4,13 @@ Usage:  python manage.py seed_demo
 
 Safe to run many times: every row is looked up by a natural key first
 (username, slug, title, ...) and only created if it is missing.
+Prices are the exception: they are always set to the values below, so a
+database seeded with older demo prices gets the current ones.
+
+All prices are in US dollars.
 """
 from datetime import datetime, time, timedelta
+from decimal import Decimal
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -37,7 +42,7 @@ EDUCATORS = [
 ]
 
 COURSES = [
-    # title, subject slug, level, language, price, educator index
+    # title, subject slug, level, language, price in USD, educator index
     ("English Grammar Basics", "english", "a2", "uz", "0.00", 0),
     ("IELTS Writing Task 2", "english", "b2", "en", "25.00", 0),
     ("Speaking with Confidence", "english", "b1", "en", "15.00", 0),
@@ -68,19 +73,19 @@ LECTURES = [
 ]
 
 TUTORS = [
-    # username, first, last, hourly rate, languages, [(subject, min level, max level)]
+    # username, first, last, hourly rate in USD, languages, [(subject, min level, max level)]
     ("demo_tutor_1", "Aziza", "Yusupova", "15.00", ["uz", "en"], [("english", "a1", "b2")]),
-    ("demo_tutor_2", "Bekzod", "Tursunov", "20.00", ["en"], [("english", "b1", "c2")]),
+    ("demo_tutor_2", "Bekzod", "Tursunov", "25.00", ["en"], [("english", "b1", "c2")]),
     ("demo_tutor_3", "Dilshod", "Ergashev", "12.00", ["uz", "ru"],
      [("math", "beginner", "advanced"), ("physics", "beginner", "intermediate")]),
     ("demo_tutor_4", "Malika", "Saidova", "18.00", ["uz", "en"], [("programming", "beginner", "intermediate")]),
-    ("demo_tutor_5", "Otabek", "Nazarov", "10.00", ["uz"], [("history", "beginner", "advanced")]),
+    ("demo_tutor_5", "Otabek", "Nazarov", "8.00", ["uz"], [("history", "beginner", "advanced")]),
 ]
 
 MENTORS = [
-    # username, first, last, topics, default price, languages
+    # username, first, last, topics, session price in USD (0 = free), languages
     ("demo_mentor_1", "Kamola", "Ismoilova", "university applications, scholarships", "0.00", ["uz", "en"]),
-    ("demo_mentor_2", "Sardor", "Aliyev", "career in IT, CV review", "10.00", ["uz", "ru"]),
+    ("demo_mentor_2", "Sardor", "Aliyev", "career in IT, CV review", "15.00", ["uz", "ru"]),
     ("demo_mentor_3", "Gulnora", "Hasanova", "study planning, exam preparation", "5.00", ["en"]),
 ]
 
@@ -137,6 +142,13 @@ class Command(BaseCommand):
         self.count(created)
         return user
 
+    def set_price(self, obj, field, price):
+        """get_or_create only uses `defaults` for new rows. This also updates rows that
+        already exist, so an old database gets the current demo price."""
+        if getattr(obj, field) != Decimal(price):
+            setattr(obj, field, price)
+            obj.save(update_fields=[field])
+
     def create_slots(self, host, price):
         # Times are fixed hours on whole days, so running again on the same day finds
         # the same slots. Running on a later day only adds the new future slots.
@@ -150,6 +162,10 @@ class Command(BaseCommand):
                     defaults={"ends_at": starts_at + timedelta(hours=1), "price": price},
                 )
                 self.count(created)
+        # Update the price of ALL this demo host's slots, also the ones made on an
+        # earlier day that are no longer in the 1-3 days ahead window above.
+        # (A booking keeps its own copy of the price, so this never changes a booking.)
+        AvailabilitySlot.objects.filter(host=host).exclude(price=price).update(price=price)
 
     # ---------- one method per kind of data ----------
 
@@ -178,6 +194,7 @@ class Command(BaseCommand):
                 },
             )
             self.count(created)
+            self.set_price(course, "price", price)
             for order, (lesson_title, lesson_type, minutes, preview) in enumerate(LESSONS, start=1):
                 _, created = Lesson.objects.get_or_create(
                     course=course,
@@ -225,6 +242,7 @@ class Command(BaseCommand):
                 },
             )
             self.count(created)
+            self.set_price(profile, "hourly_rate", rate)
             for subject_slug, min_level, max_level in teaches:
                 _, created = TutorSubject.objects.get_or_create(
                     tutor=profile,
@@ -237,7 +255,7 @@ class Command(BaseCommand):
     def seed_mentors(self):
         for username, first, last, topics, price, languages in MENTORS:
             user = self.get_user(username, first, last, "mentor")
-            _, created = MentorProfile.objects.get_or_create(
+            profile, created = MentorProfile.objects.get_or_create(
                 user=user,
                 defaults={
                     "bio": f"Hi, I am {first}. Book a session and let's plan your next step.",
@@ -248,4 +266,5 @@ class Command(BaseCommand):
                 },
             )
             self.count(created)
+            self.set_price(profile, "default_price", price)
             self.create_slots(user, price)

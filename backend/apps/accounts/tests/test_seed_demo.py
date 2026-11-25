@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import CommandError, call_command
@@ -36,6 +38,38 @@ def test_seed_demo_is_safe_to_run_twice():
     call_command("seed_demo", "--force")
 
     assert row_counts() == first
+
+
+@pytest.mark.django_db
+def test_seed_demo_updates_old_demo_prices():
+    # A database seeded with older demo prices (for example the so'm amounts
+    # used for a while) must get the current dollar prices on the next run.
+    call_command("seed_demo", "--force")
+    course = Course.objects.get(title="IELTS Writing Task 2")
+    tutor = TutorProfile.objects.get(user__username="demo_tutor_1")
+    mentor = MentorProfile.objects.get(user__username="demo_mentor_2")
+    slot = AvailabilitySlot.objects.filter(host=tutor.user).first()
+    # A slot made on an earlier day: outside the "1-3 days ahead" window of this run.
+    old_slot = AvailabilitySlot.objects.create(
+        host=tutor.user,
+        starts_at=slot.starts_at - timedelta(days=5),
+        ends_at=slot.ends_at - timedelta(days=5),
+        price=120000,
+    )
+    Course.objects.filter(pk=course.pk).update(price=350000)
+    TutorProfile.objects.filter(pk=tutor.pk).update(hourly_rate=120000)
+    MentorProfile.objects.filter(pk=mentor.pk).update(default_price=100000)
+    AvailabilitySlot.objects.filter(pk=slot.pk).update(price=120000)
+
+    call_command("seed_demo", "--force")
+
+    for obj in (course, tutor, mentor, slot, old_slot):
+        obj.refresh_from_db()
+    assert course.price == 25
+    assert tutor.hourly_rate == 15
+    assert mentor.default_price == 15
+    assert slot.price == 15
+    assert old_slot.price == 15
 
 
 @pytest.mark.django_db
